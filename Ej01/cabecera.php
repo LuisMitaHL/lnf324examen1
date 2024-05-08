@@ -5,6 +5,7 @@
     <style>
         body {
             background-color: lightblue;
+            font-family: "Ubuntu", Arial, sans-serif;
         }
         h1 {
             color: navy;
