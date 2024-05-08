@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class Main {
 
-    private static final String API_URL = "http://localhost:8007/api.php?tabla=Persona";
+    private static final String API_URL = "http://localhost:8004/api.php?tabla=Persona";
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();

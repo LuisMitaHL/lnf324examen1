@@ -14,6 +14,8 @@ include '../Ej01/cabecera.php';
                 <input type="text" id="nombre" name="nombre"><br>
                 <label for="direccion">Direccion:</label><br>
                 <input type="text" id="direccion" name="direccion"><br>
+                <label for="departamento">Departamento:</label><br>
+                <input type="text" id="departamento" name="departamento"><br>
                 <label for="telefono">Telefono:</label><br>
                 <input type="text" id="telefono" name="telefono"><br>
                 <input type="submit" value="Dar de alta">
@@ -117,9 +119,10 @@ switch ($transaccion) {
         $nombre = $_POST['nombre'];
         $direccion = $_POST['direccion'];
         $telefono = $_POST['telefono'];
+        $departamento = $_POST['departamento'];
         $activo = 1; // le activamos la cuenta de inmediato
 
-        $sql = "INSERT INTO Persona (nombre, direccion, telefono, activo) VALUES ('$nombre', '$direccion', '$telefono', $activo)";
+        $sql = "INSERT INTO Persona (nombre, direccion, telefono, departamento, activo) VALUES ('$nombre', '$direccion', '$telefono', '$departamento' , $activo)";
         $resultado = $conexion->query($sql);
 
         if ($resultado) {
@@ -210,9 +213,9 @@ $sql = "SELECT * FROM Persona WHERE activo=1";
 $resultado = $conexion->query($sql);
 
 if ($resultado->num_rows > 0) {
-    echo "<table border='1px'><tr><th>ID Persona</th><th>Nombre</th><th>Direccion</th><th>Telefono</th></tr>";
+    echo "<table border='1px'><tr><th>ID Persona</th><th>Nombre</th><th>Direccion</th><th>Departamento</th><th>Telefono</th></tr>";
     while($fila = $resultado->fetch_assoc()) {
-        echo "<tr><td>" . $fila["id"]. "</td><td>" . $fila["nombre"]. "</td><td>" . $fila["direccion"]. "</td><td>" . $fila["telefono"]. "</td></tr>";
+        echo "<tr><td>" . $fila["id"]. "</td><td>" . $fila["nombre"]. "</td><td>" . $fila["direccion"]. "</td><td>" . $fila["departamento"]. "</td><td>" . $fila["telefono"]. "</td></tr>";
     }
     echo "</table>";
 } else {
@@ -221,13 +224,16 @@ if ($resultado->num_rows > 0) {
 ?>
 <h3>Cuentas Bancarias activas</h3>
 <?php
-$sql = "SELECT * FROM CuentaBancaria WHERE activo=1";
+$sql = "SELECT CuentaBancaria.*, Persona.nombre 
+        FROM CuentaBancaria 
+        JOIN Persona ON CuentaBancaria.id_persona = Persona.id
+        WHERE CuentaBancaria.activo=1 AND Persona.activo=1";
 $resultado = $conexion->query($sql);
 
 if ($resultado->num_rows > 0) {
-    echo "<table border='1px'><tr><th>ID Cuenta Bancaria</th><th>ID Persona</th><th>Saldo</th><th>Fecha Creacion</th><th>Tipo</th></tr>";
+    echo "<table border='1px'><tr><th>ID Cuenta Bancaria</th><th>Nombre</th><th>ID Persona</th><th>Saldo</th><th>Fecha Creacion</th><th>Tipo</th></tr>";
     while($fila = $resultado->fetch_assoc()) {
-        echo "<tr><td>" . $fila["id"]. "</td><td>" . $fila["id_persona"]. "</td><td>" . $fila["saldo"]. "</td><td>" . $fila["fecha_creacion"]. "</td><td>" . $fila["tipo"]. "</td></tr>";
+        echo "<tr><td>" . $fila["id"]. "</td><td>" . $fila["nombre"]. "</td><td>" . $fila["id_persona"]. "</td><td>" . $fila["saldo"]. "</td><td>" . $fila["fecha_creacion"]. "</td><td>" . $fila["tipo"]. "</td></tr>";
     }
     echo "</table>";
 } else {
