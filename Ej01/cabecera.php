@@ -10,16 +10,22 @@
         h1 {
             color: navy;
             margin-left: 20px;
+            display: block;
+            width: 50%;
+            height: 50px;
+            float: left;
         }
         nav {
             padding: 10px;
-            width: 100%;
-            display: block;
+            width: 50%;
+            display: flex;
+            height: 50px;
         }
         nav ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
+            float: left;
         }
         nav ul li {
             display: inline;
@@ -35,7 +41,8 @@
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
+        <h1>Banco de la Fortuna</h1>
     </nav>
-
-    <h1>Banco de la Fortuna</h1>
+    <br><br>
+    
     
